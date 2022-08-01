@@ -88,8 +88,22 @@ const TrendingMoviesControl = () => {
 
 
 }
+const mobileMenu = () => {
+    document.querySelector('.menu-mobile').addEventListener('click', () => {
+        document.querySelector('.menu-mobile').classList.toggle('menu-mobile-active')
+        document.querySelector('.mobile__menu').classList.toggle('mobile__menu-active')
+    })
+}
 window.addEventListener('load', () => {
     scrollEventContainerMovies()
-    //scrollContainer()
     TrendingMoviesControl()
+    mobileMenu()
+    const scroll = document.querySelector('#scroll-top');
+    window.addEventListener('scroll', (e) => {
+        if (this.scrollY > 800) {
+            scroll.style.visibility = 'visible';
+        } else {
+            scroll.style.visibility = 'hidden';
+        }
+    });
 })
