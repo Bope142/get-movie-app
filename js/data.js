@@ -200,6 +200,7 @@ async function getComingMovies(keyApi) {
                     </div>`
                 }
                 if (index === MoviesComing.results.length - 1) {
+
                     loadingData(true)
                 }
 
@@ -208,6 +209,7 @@ async function getComingMovies(keyApi) {
 
         } else {
             console.log('no movies')
+
         }
     }
 
