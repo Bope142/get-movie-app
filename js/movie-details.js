@@ -11,7 +11,7 @@ const UIcardMovie = (img, bg, title, genre, overview, release_date, vote_average
     })
     document.querySelector('.overview').innerHTML = overview
     document.querySelector('.other-infos').innerHTM = ''
-    document.querySelectorAll('.release_date').innerHTML = release_date
+    document.querySelector('.release_date').innerHTML = release_date
     document.querySelector('.vote_average').innerHTML = vote_average
     document.querySelector('.popularity').innerHTML = popularity
     document.querySelector('.revenue').innerHTML = revenue + ' $'
