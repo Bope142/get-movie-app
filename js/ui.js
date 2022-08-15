@@ -53,7 +53,23 @@ const scrollEventContainerMovies = () => {
     })
 }
 const CreatUiMovieCard = (idMovies, titleMovie, dateRelease, posterPic, Rating) => {
-    return `<div class="movie-view" id-movie=${idMovies} title-movie=${titleMovie} date-movie=${dateRelease} pic-movie=${posterPic} rate-movie=${Rating}>
+    if (Rating === 'none') {
+        return `<div class="movie-view person-movie" id-movie=${idMovies} title-movie=${titleMovie} date-movie=${dateRelease} pic-movie=${posterPic}>
+                        <div class="poster-pics">
+                            <div class="control-view">
+                                <a href="/movie.html?${idMovies}" class="btn more-detail-movie">
+                                    Voir
+                                </a>
+                            </div>
+                            <img src="https://image.tmdb.org/t/p/original/${posterPic}" alt="">
+                        </div>
+                        <div class="details-movie">
+                            <span class="title">${titleMovie}</span>
+                            <span class="other-infos">${dateRelease}</span>
+                        </div>
+                    </div>`
+    } else {
+        return `<div class="movie-view" id-movie=${idMovies} title-movie=${titleMovie} date-movie=${dateRelease} pic-movie=${posterPic} rate-movie=${Rating}>
                         <div class="poster-pics">
                             <div class="control-view">
                                 <a href="/movie.html?${idMovies}" class="btn more-detail-movie">
@@ -73,6 +89,8 @@ const CreatUiMovieCard = (idMovies, titleMovie, dateRelease, posterPic, Rating) 
                             <span class="other-infos">${dateRelease}</span>
                         </div>
                     </div>`
+    }
+
 }
 
 const removeSelect = () => {
@@ -83,6 +101,15 @@ const TrendingMoviesControl = () => {
         menu.addEventListener('click', () => {
             removeSelect()
             menu.classList.add('type-data-select')
+            if (index === 0) {
+                getTrendingMovies(APIKEY, 'all')
+            } else if (index === 1) {
+                getTrendingMovies(APIKEY, 'movie')
+            } else if (index === 2) {
+                getTrendingMovies(APIKEY, 'tv')
+            } else {
+                getTrendingMovies(APIKEY, 'person')
+            }
         })
     })
 

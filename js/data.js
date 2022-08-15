@@ -10,27 +10,44 @@ async function requestApi(urlRequest) {
     }
 }
 
-async function getTrendingMovies(keyApi) {
-    let url = `https://api.themoviedb.org/3/trending/all/day?api_key=${keyApi}&language=fr`;
+async function getTrendingMovies(keyApi, type) {
+    let url = `https://api.themoviedb.org/3/trending/${type}/day?api_key=${keyApi}&language=fr`;
     let MoviesTrending = await requestApi(url);
-    console.log(MoviesTrending.results.length)
+    console.log(MoviesTrending.results)
+    if (MoviesTrending.total_pages > 1) {
+        document.querySelector('.container__tendencies__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+    } else {
+        document.querySelector('.container__tendencies__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+    }
     if (MoviesTrending.results.length > 1) {
         document.querySelector('.content-movie-trending').innerHTML = ''
-        MoviesTrending.results.forEach(movie => {
-            if (typeof movie.title != "undefined") {
-                if (movie.poster_path == null) {
-                    if (movie.backdrop_path !== null) {
-                        document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.title, movie.release_date, movie.backdrop_path, movie.vote_average)
-                    }
-                } else {
-                    document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.title, movie.release_date, movie.poster_path, movie.vote_average)
+        if (type === 'person') {
+            MoviesTrending.results.forEach(movie => {
+                if (movie.profile_path !== null) {
+
+                    document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.name, "", movie.profile_path, 'none')
                 }
 
-            } else {
-                document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.original_name, movie.first_air_date, movie.poster_path, movie.vote_average)
-            }
 
-        })
+            })
+        } else {
+            MoviesTrending.results.forEach(movie => {
+                if (typeof movie.title != "undefined") {
+                    if (movie.poster_path == null) {
+                        if (movie.backdrop_path !== null) {
+                            document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.title, movie.release_date, movie.backdrop_path, movie.vote_average)
+                        }
+                    } else {
+                        document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.title, movie.release_date, movie.poster_path, movie.vote_average)
+                    }
+
+                } else {
+                    document.querySelector('.content-movie-trending').innerHTML += CreatUiMovieCard(movie.id, movie.original_name, movie.first_air_date, movie.poster_path, movie.vote_average)
+                }
+
+            })
+        }
+
     } else {
         console.log('no movies')
     }
@@ -41,6 +58,11 @@ async function getTrendingMovies(keyApi) {
 async function getPopularMovies(keyApi) {
     let url = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${keyApi}&language=fr`;
     let MoviesPopular = await requestApi(url);
+    if (MoviesPopular.total_pages > 1) {
+        document.querySelector('.container__popular__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+    } else {
+        document.querySelector('.container__popular__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+    }
     if (MoviesPopular.results.length > 1) {
         document.querySelector('#contentPopularMovies').innerHTML = ''
         MoviesPopular.results.forEach(movie => {
@@ -59,6 +81,7 @@ async function getPopularMovies(keyApi) {
             }
 
         })
+        document.querySelector('#see-all-popular').setAttribute('href', './details.html?popularMovie')
     } else {
         console.log('no movies')
     }
@@ -90,6 +113,11 @@ async function getRecentMovies(keyApi) {
     let year = date.getFullYear();
     let url = `https://api.themoviedb.org/3/discover/movie?primary_release_year=${year}&sort_by=vote_average.desc&api_key=${keyApi}&language=fr`;
     let MoviesRecents = await requestApi(url);
+    if (MoviesRecents.total_pages > 1) {
+        document.querySelector('.container__recent__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+    } else {
+        document.querySelector('.container__recent__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+    }
     if (MoviesRecents.results.length > 1) {
         document.querySelector('#recentMoviesContainer').innerHTML = ''
         MoviesRecents.results.forEach(movie => {
@@ -117,6 +145,11 @@ async function getRecentMovies(keyApi) {
 async function getDrameMovies(keyApi) {
     let url = `https://api.themoviedb.org/3/discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10&api_key=${keyApi}&language=fr`;
     let MoviesDrame = await requestApi(url);
+    if (MoviesDrame.total_pages > 1) {
+        document.querySelector('.container__drame__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+    } else {
+        document.querySelector('.container__drame__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+    }
     if (MoviesDrame.results.length > 1) {
         document.querySelector('#drameMoviesContainer').innerHTML = ''
         MoviesDrame.results.forEach(movie => {
@@ -149,6 +182,11 @@ async function getComingMovies(keyApi) {
         document.querySelector('.no-data').classList.add('no-data-visible')
 
     } else {
+        if (MoviesComing.total_pages > 1) {
+            document.querySelector('.container__coming__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+        } else {
+            document.querySelector('.container__coming__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+        }
         if (MoviesComing.results.length > 1) {
             document.querySelector('#comingMoviesContainer').innerHTML = ''
             MoviesComing.results.forEach((movie, index, array) => {
@@ -219,7 +257,7 @@ async function getComingMovies(keyApi) {
 
 window.addEventListener('load', () => {
     console.log('Hello!!!')
-    getTrendingMovies(APIKEY)
+    getTrendingMovies(APIKEY, 'all')
     getPopularMovies(APIKEY)
     getGenreMovies(APIKEY)
     getRecentMovies(APIKEY)
