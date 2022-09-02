@@ -84,7 +84,7 @@ async function getRecentMovies(keyApi, page) {
             if (currentPage === 1) {
                 titlePage('Films recents', `Découvrez la liste complète de nos  films  recents`)
             }
-            document.querySelector('.movies--containers').innerHTML = ''
+
             MoviesRecents.results.forEach((movie, index) => {
                 if (typeof movie.title != "undefined") {
                     if (movie.poster_path == null) {
@@ -132,7 +132,7 @@ async function getDrameMovies(keyApi, page) {
             if (currentPage === 1) {
                 titlePage('Films drame', `Découvrez nos films  de la catégorie drame`)
             }
-            document.querySelector('.movies--containers').innerHTML = ''
+
             MoviesDrame.results.forEach((movie, index) => {
                 if (typeof movie.title != "undefined") {
                     if (movie.poster_path == null) {
@@ -176,7 +176,7 @@ async function getComingMovies(keyApi, page) {
             if (currentPage === 1) {
                 titlePage('Films en vedette', `Découvrez la liste complète de nos films  en vedette`)
             }
-            document.querySelector('.movies--containers').innerHTML = ''
+
             MoviesComing.results.forEach((movie, index) => {
                 if (typeof movie.title != "undefined") {
                     if (movie.poster_path == null) {
@@ -220,7 +220,7 @@ async function getGenreMovies(keyApi, page) {
                 pageTotal = MoviesGenre.total_pages
             }
 
-            document.querySelector('.movies--containers').innerHTML = ''
+
             MoviesGenre.results.forEach((movie, index) => {
                 if (typeof movie.title != "undefined") {
                     if (movie.poster_path == null) {
@@ -293,6 +293,7 @@ window.addEventListener('load', (e) => {
     console.log(queryString)
     const urlParams = new URLSearchParams(queryString);
     if (urlParams.has('genre')) {
+        document.querySelector('.movies--containers').innerHTML = ''
         genreMovie.id = parseInt(urlParams.get('id'))
         genreMovie.name = urlParams.get('genre')
         titlePage(`Films ${genreMovie.name}`, `Découvrez la liste complète de nos  films  ${genreMovie.name}`)
