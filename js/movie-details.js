@@ -14,7 +14,6 @@ const UIcardMovie = (img, bg, title, genre, overview, release_date, vote_average
     document.querySelector('.release_date').innerHTML = release_date
     document.querySelector('.vote_average').innerHTML = vote_average
     document.querySelector('.popularity').innerHTML = popularity
-    document.querySelector('.revenue').innerHTML = revenue + ' $'
 
     language.forEach(lang => {
         document.querySelector('.other-infos').innerHTML += `
@@ -93,11 +92,11 @@ async function getsimilarMovie(keyApi, idMovie) {
                 }
 
             })
-            if (MovieSimilar.total_pages > 1) {
-                document.querySelector('.container__similaire__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
-            } else {
-                document.querySelector('.container__similaire__movies .title-section .btn-see-all').classList.add('btn-see-hide')
-            }
+            //            if (MovieSimilar.total_pages > 1) {
+            //                document.querySelector('.container__similaire__movies .title-section .btn-see-all').classList.remove('btn-see-hide')
+            //            } else {
+            //                document.querySelector('.container__similaire__movies .title-section .btn-see-all').classList.add('btn-see-hide')
+            //            }
 
         } else {
             console.log('no movies')

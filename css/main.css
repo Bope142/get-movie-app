@@ -970,7 +970,8 @@ body {
 .movie-view {
   display: flex;
   flex: none;
-  height: auto;
+  min-height: 120px;
+  height: 300px;
   width: 180px;
   flex-direction: column;
   grid-row-gap: 15px;

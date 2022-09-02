@@ -744,7 +744,8 @@ input {
 .movie-view {
   display: flex;
   flex: none;
-  height: auto;
+  min-height: 120px;
+  height: 300px;
   width: 180px;
   flex-direction: column;
   grid-row-gap: 15px;
@@ -1835,10 +1836,15 @@ input {
     width: 0.8rem !important;
   }
 }
+.container__banner {
+  height: 300px !important;
+}
+
 .movies--containers {
-  padding: 25px 100px;
+  padding: 15px 100px;
   display: grid;
-  grid-gap: 25px;
+  column-gap: 25px;
+  grid-row-gap: 10px;
   flex-wrap: wrap;
   height: auto;
   justify-content: center;
@@ -1846,6 +1852,7 @@ input {
 }
 .movies--containers .movie-view {
   flex: none;
+  align-self: flex-start;
 }
 
 .loader-data-scrolling-visible {
@@ -1856,11 +1863,22 @@ input {
   display: none !important;
 }
 
+.btn-load-data {
+  background: #FFAC00;
+  color: #F2F2F4;
+  font-family: "Poppins-Medium", sans-serif;
+  font-size: 0.7rem;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  border-radius: 0.8rem;
+}
+
 .loader-data-scrolling {
   align-items: center;
   justify-content: center;
   flex: none;
-  padding: 20px 100px;
+  padding: 10px 100px;
 }
 
 .lds-roller {
@@ -1972,7 +1990,7 @@ input {
   }
 
   .loader-data-scrolling {
-    padding: 30px 50px;
+    padding: 10px 50px;
   }
 }
 @media only screen and (max-width: 1100px) {
@@ -1986,7 +2004,7 @@ input {
   }
 
   .loader-data-scrolling {
-    padding: 30px 20px;
+    padding: 10px 20px;
   }
 }
 

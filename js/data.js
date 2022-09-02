@@ -96,9 +96,9 @@ async function getGenreMovies(keyApi) {
     if (MoviesGenre.genres.length > 1) {
         document.querySelector('.categorie-film').innerHTML = ''
         MoviesGenre.genres.forEach(genre => {
-            document.querySelector('.categorie-film').innerHTML += `<div class="catgorie" id-genre=" ${genre.id} name-genre=" ${genre.name}">
+            document.querySelector('.categorie-film').innerHTML += `<a href="./details.html?genre=${genre.name}&id=${genre.id}" class="catgorie" id-genre="${genre.id}" name-genre="${genre.name}">
                     ${genre.name}
-                </div>`
+                </a>`
 
         })
     } else {
@@ -136,6 +136,7 @@ async function getRecentMovies(keyApi) {
             }
 
         })
+        document.querySelector('#see-all-recent').setAttribute('href', './details.html?recentMovie')
     } else {
         console.log('no movies')
     }
@@ -167,6 +168,7 @@ async function getDrameMovies(keyApi) {
             }
 
         })
+        document.querySelector('#see-all-drame').setAttribute('href', './details.html?drameMovie')
     } else {
         console.log('no movies')
     }
@@ -244,7 +246,7 @@ async function getComingMovies(keyApi) {
 
 
             })
-
+            document.querySelector('#see-all-coming').setAttribute('href', './details.html?comingMovie')
         } else {
             console.log('no movies')
 
